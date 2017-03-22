@@ -6,6 +6,8 @@ install_service_script:
     - source: salt://vault/files/service.sh
     - mode: 755
     - template: jinja
+
+install_service_init:
   file.managed:
     - name: {{ vault_settings.service.init_file }}
     - source: {{ vault_settings.service.init_source}}
