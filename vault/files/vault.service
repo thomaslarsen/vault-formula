@@ -1,0 +1,15 @@
+[Unit]
+Description=Hashicorp Vault secret management service
+Documentation=http://vaultproject.io
+
+[Service]
+Type=forking
+ExecStart={{ salt['pillar.get']('vault:install_location') }}/vault-service start
+ExecStop={{ salt['pillar.get']('vault:install_location') }}/vault-service stop
+ExecReload={{ salt['pillar.get']('vault:install_location') }}/vault-service reload
+Restart=always
+PIDFile={{ salt['pillar.get']('vault:pidfile', '/var/run/vault.pid') }}
+TimeoutStartSec=1
+
+[Install]
+WantedBy=multi-user.target

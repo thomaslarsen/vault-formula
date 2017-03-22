@@ -1,0 +1,46 @@
+{# Settings map file: 'vault/map.jinja' #}
+{# To use, add: #}
+{# {% from "vault/map.jinja" import vault_settings with context %} #}
+{% set os_map = salt['grains.filter_by']({
+    'default': {
+      'version': '0.6.5',
+      'architecture_dict': {
+        'x86_64': 'amd64',
+        'amd64': 'amd64',
+        'i386': '386',
+        'i686': '386'
+      },
+      'install_location': '/usr/local/bin',
+      'config_location': '/etc/vault',
+      'pidfile': '/var/run/vault.pid'
+    },
+    'Debian': {
+    },
+    'RedHat': {
+    },
+}, grain='os_family', merge=salt['pillar.get']('vault:lookup'), base='default') %}
+
+{% set service_map = salt.grains.filter_by({
+    'systemd': {
+        'init_file': '/etc/systemd/system/vault.service',
+        'init_source': 'salt://vault/files/vault.service'
+    },
+    'upstart': {
+        'init_file': '/etc/init/vault.conf',
+        'init_source': 'salt://vault/files/vault.upstart'
+    }
+}, grain='init', merge=salt.pillar.get('vault:service')) %}
+
+{% set default_settings = {
+    'vault': {
+      'service': {},
+      'config': {},
+	}
+}%}
+
+{# Merge os_map into default_settings dictionary #}
+{% do default_settings.vault.update(os_map) %}
+{% do default_settings.vault.service.update(service_map) %}
+
+{# Update settings defaults from pillar data #}
+{% set vault_settings = salt['pillar.get']('vault', default=default_settings.vault, merge=True) %}
