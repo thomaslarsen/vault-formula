@@ -1,9 +1,10 @@
+{%- from "vault/map.jinja" import vault_settings with context -%}
 #!/bin/bash
 
-PIDFILE={{ salt['pillar.get']('vault:pidfile', '/var/run/vault.pid') }}
+PIDFILE={{ vault_settings.pid_file }}
 
 start () {
-    {{ salt['pillar.get']('vault:install_location') }}/vault server -config {{ salt['pillar.get']('vault:config_location') }} 2>&1 &
+    {{ vault_settings.install_location }}/vault server -config {{ vault_settings.config_location }} 2>&1 &
     echo $! > $PIDFILE
     echo "Vault is starting"
 }
