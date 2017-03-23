@@ -1,14 +1,15 @@
+{%- from "vault/map.jinja" import vault_settings with context -%}
 [Unit]
 Description=Hashicorp Vault secret management service
 Documentation=http://vaultproject.io
 
 [Service]
 Type=forking
-ExecStart={{ salt['pillar.get']('vault:install_location') }}/vault-service start
-ExecStop={{ salt['pillar.get']('vault:install_location') }}/vault-service stop
-ExecReload={{ salt['pillar.get']('vault:install_location') }}/vault-service reload
+ExecStart={{ vault_settings.install_location }}/vault-service start
+ExecStop={{ vault_settings.install_location }}/vault-service stop
+ExecReload={{ vault_settings.install_location }}/vault-service reload
 Restart=always
-PIDFile={{ salt['pillar.get']('vault:pidfile', '/var/run/vault.pid') }}
+PIDFile={{ vault_settings.pidfile }}
 TimeoutStartSec=1
 
 [Install]

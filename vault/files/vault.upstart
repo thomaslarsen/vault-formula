@@ -4,9 +4,9 @@ start on filesystem or runlevel [2345]
 stop on shutdown
 
 script
-  {{ salt['pillar.get']('vault:install_location') }}/vault-service start
+  {{ vault_settings.install_location }}/vault-service start
 end script
 
 pre-stop script
-  {{ salt['pillar.get']('vault:install_location') }}/vault-service stop
+  {{ vault_settings.install_location }}/vault-service stop
 end script
