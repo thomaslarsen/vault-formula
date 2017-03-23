@@ -14,5 +14,3 @@ install_vault_binary:
     - mode: '0755'
     - require:
       - archive: install_vault_binary
-    - require_in:
-      - file: configure_vault_server
