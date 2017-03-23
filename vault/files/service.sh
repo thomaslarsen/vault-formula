@@ -1,7 +1,7 @@
 {%- from "vault/map.jinja" import vault_settings with context -%}
 #!/bin/bash
 
-PIDFILE={{ vault_settings.pid_file }}
+PIDFILE={{ vault_settings.pidfile }}
 
 start () {
     {{ vault_settings.install_location }}/vault server -config {{ vault_settings.config_location }} 2>&1 &
