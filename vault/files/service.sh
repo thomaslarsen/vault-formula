@@ -4,7 +4,7 @@
 PIDFILE={{ vault_settings.pidfile }}
 
 start () {
-    {{ vault_settings.install_location }}/vault server -config {{ vault_settings.config_location }} 2>&1 &
+    {{ vault_settings.install_location }}/vault server -config {{ vault_settings.config_location }} > {{ vault_settings.log_location }}/vault.log 2>&1 &
     echo $! > $PIDFILE
     echo "Vault is starting"
 }
