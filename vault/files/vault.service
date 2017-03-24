@@ -5,9 +5,9 @@ Documentation=http://vaultproject.io
 
 [Service]
 Type=forking
-ExecStart={{ vault_settings.install_location }}/vault-service start
-ExecStop={{ vault_settings.install_location }}/vault-service stop
-ExecReload={{ vault_settings.install_location }}/vault-service reload
+ExecStart={{ vault_settings.install_location }}/{{ vault_settings.vault_service }} start
+ExecStop={{ vault_settings.install_location }}/{{ vault_settings.vault_service }} stop
+ExecReload={{ vault_settings.install_location }}/{{ vault_settings.vault_service }} reload
 Restart=always
 PIDFile={{ vault_settings.pidfile }}
 TimeoutStartSec=1

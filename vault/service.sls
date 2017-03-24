@@ -2,7 +2,7 @@
 
 install_service_script:
   file.managed:
-    - name: {{ vault_settings.install_location }}/vault-service
+    - name: {{ vault_settings.install_location }}/{{ vault_settings.vault_service }}
     - source: salt://vault/files/service.sh
     - mode: 755
     - template: jinja
