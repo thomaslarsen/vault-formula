@@ -10,6 +10,7 @@
         'i386': '386',
         'i686': '386'
       },
+      'service': {},
       'install_location': '/usr/local/bin',
       'vault_service': 'vault-service',
       'config_location': '/etc/vault',
@@ -31,11 +32,10 @@
         'init_file': '/etc/init/vault.conf',
         'init_source': 'salt://vault/files/vault.upstart'
     }
-}, grain='init', merge=salt.pillar.get('vault:service')) %}
+}, grain='init', merge=salt.pillar.get('vault:lookup:service')) %}
 
 {% set default_settings = {
     'vault': {
-      'service': {},
       'config': {
         'listener': {
           'tcp': {
@@ -43,6 +43,10 @@
           }
         }
       },
+      'setup': {
+        'secret_shares': 3,
+        'secret_threshold': 2
+      }
 	}
 }%}
 
