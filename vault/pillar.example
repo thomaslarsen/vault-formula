@@ -1,0 +1,15 @@
+vault:
+  lookup:
+    version: 0.6.2
+    service:
+      systemd:
+        init_source: salt://other/files/vault.service
+    ssl:
+      dsdsd
+    setup:
+      
+  config:
+    backend:
+      consul:
+        address: 127.0.0.1:8500
+        path: vault/
